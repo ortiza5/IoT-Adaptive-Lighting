@@ -1,0 +1,80 @@
+<!--Navbar-->
+<nav class="navbar navbar-expand-lg navbar-dark fixed-top scrolling-navbar">
+
+  <div class="container">
+
+    <!-- Navbar brand -->
+    <a class="navbar-brand" href="/">FastForms</a>
+
+    <!-- Collapse button -->
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#basicExampleNav"
+    aria-controls="basicExampleNav" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <!-- Collapsible content -->
+  <div class="collapse navbar-collapse" id="basicExampleNav">
+
+    <!-- Links -->
+    <ul class="navbar-nav mr-auto">
+      {% if session.logged_in %}
+        <li class="nav-item">
+          <a class="nav-link" href="/home">Home
+            <span class="sr-only">(current)</span>
+          </a>
+        </li>
+      {% endif %}
+      <li class="nav-item">
+        <a class="nav-link" href="/forms">Forms</a>
+      </li>
+      <!-- ALEX: Got rid of dropdown for now-->
+      <!-- <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
+        aria-expanded="false">Forms</a>
+        <div class="dropdown-menu dropdown-primary" aria-labelledby="navbarDropdownMenuLink">
+          <a class="dropdown-item" href="#">Admissions</a>
+          <a class="dropdown-item" href="#">Health Center</a>
+          <a class="dropdown-item" href="#">Registrar</a>
+        </div>
+      </li> -->
+      <li class="nav-item">
+        <a class="nav-link" href="/about">About</a>
+      </li>
+    </ul>
+    <!-- Links -->
+
+
+        <!-- <button type="Submit" >
+          <i class="fa fa-search text-white ml-3" aria-hidden="true"></i>
+        </button>
+        <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search"> -->
+
+
+    <form class="form-inline" action="{{url_for('search')}}" method="post">
+      <div class="md-form my-0">
+        <button type="submit" value="Search" class="btn btn-flat btn-sm my-0">
+          <i class="fa fa-search text-white ml-3" aria-hidden="true"></i>
+        </button>
+        <input class="form-control mr-sm-2" type="text" name="term" placeholder="Search" value=''>
+      </div>
+    </form>
+
+    <ul class="nav navbar-nav navbar-right">
+      {% if session.logged_in %}
+        <li class="nav-item">
+          <a class="nav-link" href="/logout">Logout</a>
+        </li>
+      {% else %}
+        <li class="nav-item">
+          <a class="nav-link" href="/login">Sign In</a>
+        </li>
+      {% endif %}
+    </ul>
+
+  </div>
+  <!-- Collapsible content -->
+
+</div>
+
+</nav>
+<!--/.Navbar-->

@@ -1,0 +1,74 @@
+
+header {
+    background-color: #b71c1c;
+}
+
+.top-nav-collapse {
+  background-color: #b71c1c;
+}
+@media (max-width: 768px) {
+  .navbar:not(.top-nav-collapse) {
+    background-color: #b71c1c;
+  }
+}
+@media (min-width: 800px) and (max-width: 850px) {
+  .navbar:not(.top-nav-collapse) {
+    background-color: #b71c1c;
+  }
+}
+
+.streak.streak-photo {
+background-attachment: fixed;
+}
+
+.no-pad-btn {
+  padding: 4px 7px 3px 7px;
+}
+
+.ignore-validate {
+    color: #495057;
+}
+
+.ignore-validate.custom-select.is-valid, .ignore-validate.form-control.is-valid, .was-validated .custom-select:valid, .was-validated .form-control:valid {
+    border-color: #8a8a8a;
+}
+
+.ignore-validate.form-check-input.is-valid~.ignore-validate.form-check-label, .was-validated .form-check-input:valid~.form-check-label {
+    color: #495057;
+}
+
+
+.ignore-validate.custom-select.is-valid:focus, .ignore-validate.form-control.is-valid:focus, .was-validated .custom-select:valid:focus, .was-validated .form-control:valid:focus {
+  border-color: #80bdff;
+  outline: 0;
+  box-shadow: 0 0 0 0.2rem rgba(128,189,255,.5);
+}
+
+.btn-no-hover.btn.btn-flat:hover{
+  background-color: rgba(244, 244, 244, 0);
+}
+
+/* html {
+  height: 100%;
+  box-sizing: border-box;
+}
+
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}
+
+body {
+  position: relative;
+  margin: 0;
+  padding-bottom: 20rem;
+  min-height: 100%;
+}
+
+footer {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+} */
