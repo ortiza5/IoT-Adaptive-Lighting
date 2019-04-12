@@ -19,6 +19,7 @@
   <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
 </head>
 <body>
+  {% include 'includes/_navbar.html'%}
   {% block body %} {% endblock %}
   <!--Footer-->
   <footer>
