@@ -12,7 +12,8 @@ $(document).ready(function() {
 	});
 
 	socket.on('mqtt_pub', function(data) {
-		$("#log_data").append('<p> Published: X: '+data['x']+'  Y: '+data['y']+'</p>');
+		$("#log_data").append('<p> Published data: '+ data +'</p>');
 		console.log(data['payload'])
 	});
+
 });
