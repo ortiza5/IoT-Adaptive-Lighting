@@ -1,4 +1,4 @@
-from flask import Flask, render_template, flash, redirect
+from flask import Flask, render_template, flash, redirect, request, url_for
 from flask_mqtt import Mqtt
 from flask_socketio import SocketIO
 import ssl
@@ -17,13 +17,15 @@ from config import *
 # Global Variables:
 x_loc = 0
 y_loc = 0
-intensity = 1
+intensity = 0.7
 r_val = 255
 b_val = 255
 g_val = 255
 num_leds = 300
 length = 5	#(in meters)
 leds_per_m = num_leds/length
+mode = "Localized"
+radius = 10
 
 # Using Development Broker
 # # =========================================================================
@@ -74,7 +76,44 @@ def mapping():
 
 @app.route('/settings', methods=['GET', 'POST'])
 def settings():
-	return render_template('settings.html')
+	global r_val, g_val, b_val, intensity, num_leds, mode, radius
+	form_vals = [r_val, g_val, b_val, intensity, num_leds, mode, radius]
+	# get user input
+	if request.method == 'POST':
+		inputs = request.form
+		for setting in inputs:
+			print(setting)
+			if setting in ['redid', 'greenid', 'blueid']:
+				if int(inputs[setting]) >= 0 and int(inputs[setting]) <= 255:
+					if setting == 'redid':
+						r_val = int(inputs[setting])
+					if setting == 'greenid':
+						g_val = int(inputs[setting])
+					if setting == 'blueid':
+						b_val = int(inputs[setting])
+			if setting == 'intensityid':
+				intensity = float(inputs[setting])
+			if setting == 'numberid':
+				if int(inputs[setting]) >= 0 and int(inputs[setting]) <= 300:
+					num_leds = int(inputs[setting])
+			if setting == 'radiusid':
+				if int(inputs[setting]) >= 0 and int(inputs[setting]) <= num_leds:
+					radius = int(inputs[setting])
+			if setting == 'modeid':
+				mode = inputs[setting]
+		payload = json.dumps(dict(
+			red=r_val,
+			green=g_val,
+			blue=b_val,
+			brightness=intensity,
+			number= num_leds,
+			mode=mode
+		))
+		mqtt.publish('configurations/strip1', payload, 1)
+		return redirect(url_for('console_log'))
+
+
+	return render_template('settings.html', form_vals=form_vals)
 
 # =========================================================================
 # **************************MQTT Functions*********************************
@@ -87,7 +126,7 @@ def handle_mqtt_message(client, userdata, message):
 	)
 	print('\nGot A message\n')
 	socketio.emit('mqtt_rec', data=data)
-	processing(data)
+	location_processing(data)
 
 @mqtt.on_log()
 def handle_logging(client, userdata, level, buf):
@@ -99,10 +138,6 @@ def handle_connect(client, userdata, flags, rc):
 
 @mqtt.on_publish()
 def handle_publish(client,userdata,result):
-	data = dict(
-		x=x_loc,
-		y=y_loc
-	)
 	print('data published')
 	socketio.emit('mqtt_pub', data=data)
 
@@ -116,17 +151,27 @@ def exit_handler():
 	# subprocess.Popen('service mosquitto stop', shell=True)
 	print('The application is closing')
 
-def processing(data):
-	global x_loc
-	global y_loc
+def location_processing(data):
+	global optional
+	if mode == 'Localized':
+		pass # TODO: Not implemented yet
+	elif mode == 'Perpendicular':
+		optional = float(data['payload'])
+	elif mode == 'Parallel':
+		optional = float(data['payload'])
+	elif mode == 'Solid':
+		pass # Don't actually need to do anything
 
-	print('Hello')
-	x_loc = int(data['payload'])+10
+
+
+	
+
+def lighting_processing(data):
 	new_data = json.dumps(dict(		# encodes the dictionary as a json to send
 		x=x_loc,
 		y=y_loc
 	))
-	mqtt.publish('locations/strip1', new_data)
+	mqtt.publish('locations/strip1', new_data, 1)
 
 # =========================================================================
 # Start up the app
