@@ -10,10 +10,207 @@
 <!--Main Navigation-->
 
 <!--Main layout-->
-<main class="mt-5">
-  <div class="container">
-    <p>Hello World - This is the Settings</p>
-  </div>
+<main class="mt-5 mb-5">
+	<div class="container">
+
+		<h1>Lighting Settings</h1>
+
+		<form class="needs-validation" validate action="" method="POST">
+
+			<!-- Lighting Color -->
+			<hr class="hr-dark">
+			<div class="row">
+				<div class="col-md-6">
+					<div class="row">
+						<div class="col-md-12">
+						<div class="md-form mb-0">
+							<h3 class="font-weight-bold">Lighting Color</h3>
+						</div>
+						</div>
+					</div>
+					<!-- instructions -->
+					<div class="row">
+						<div class="col-md-12">
+						<div class="md-form my-0">
+							<blockquote>Enter Red, Green, and Blue values between 0 and 255<br>*Note: The LED strip tends to produce colors with a slight blue tint</blockquote>
+						</div>
+						</div>
+					</div>
+				<!-- RGB Values -->
+					<div class="row">
+						<div class="col-md-12">
+							<div class="md-form mb-0">
+								<input type="text" id="redid" name="redid" class="form-control" required value={{form_vals[0]}}>
+								<label for="redid" class="">Red Value</label>
+								<div class="invalid-feedback">
+									Please input a value 0-255
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-12">
+							<div class="md-form mb-0">
+								<input type="text" id="greenid" name="greenid" class="form-control" required value={{form_vals[1]}}>
+								<label for="greenid" class="">Green Value</label>
+								<div class="invalid-feedback">
+									Please input a value 0-255
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-12">
+							<div class="md-form mb-0">
+								<input type="text" id="blueid" name="blueid" class="form-control" required value={{form_vals[2]}}>
+								<label for="blueid" class="">Blue Value</label>
+								<div class="invalid-feedback">
+									Please input a value 0-255
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="col-md-6">
+					<table class="table table-hover table-sm">
+						<thead>
+							<tr>
+								<th scope="col">Light Source</th>
+								<th scope="col">Color</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<th scope="row">Candle</th>
+								<td bgcolor="#FF9329">rgb(255, 147, 41)</td>
+							</tr>
+							<tr>
+								<th scope="row">40W Tungsten</th>
+								<td bgcolor="#FFC58F">rgb(255, 197, 143)</td>
+							</tr>
+							<tr>
+								<th scope="row">100W Tungsten</th>
+								<td bgcolor="#FFD6AA">rgb(255, 214, 170)</td>
+							</tr>
+							<tr>
+								<th scope="row">Halogen</th>
+								<td bgcolor="#FFF1E0">rgb(255, 241, 224)</td>
+							</tr>
+							<tr>
+								<th scope="row">Carbon Arc</th>
+								<td bgcolor="#FFFAF4">rgb(255, 250, 244)</td>
+							</tr>
+							<tr>
+								<th scope="row">High Noon Sun</th>
+								<td bgcolor="#FFFFFB">rgb(255, 255, 251)</td>
+							</tr>
+							<tr>
+								<th scope="row">Direct Sunlight</th>
+								<td bgcolor="#FFFFFF">rgb(255, 255, 255)</td>
+							</tr>
+							<tr>
+								<th scope="row">Overcast Sky</th>
+								<td bgcolor="#C9E2FF">rgb(201, 226, 255)</td>
+							</tr>
+							<tr>
+								<th scope="row">Clear Blue Sky</th>
+								<td bgcolor="#409CFF">rgb(64, 156, 255)</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+			<hr class="hr-dark">
+
+
+
+			<!-- Light Intensity -->
+			<div class="row">
+				<div class="col-md-12">
+				<div class="md-form mb-0">
+					<h3 class="font-weight-bold">Lighting Intensity</h3>
+				</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<div class="md-form mb-0">
+						<input type="range" class="custom-range form-control" min="0" max="1" step="0.1" id="intensityid" name="intensityid" value={{form_vals[3]}}>
+					</div>
+				</div>
+			</div>
+			<div class="row justify-content-between">
+				<div class="col-1">
+					Min
+				</div>
+				<div class="col-1">
+					Max
+				</div>
+			</div>
+			<hr class="hr-dark">
+
+			<!-- Number of LEDs -->
+			<div class="row">
+				<div class="col-md-12">
+				<div class="md-form mb-0">
+					<h3 class="font-weight-bold">LED Strip Details</h3>
+				</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<div class="md-form mb-0">
+						<input type="text" id="numberid" name="numberid" class="form-control" required value={{form_vals[4]}}>
+						<label for="numberid" class="">Number of LEDs in strip</label>
+						<div class="invalid-feedback">
+							Please input a value
+						</div>
+					</div>
+				</div>
+			</div>
+			<hr class="hr-dark">
+
+			<!-- Lighting Mode -->
+			<div class="row">
+				<div class="col-md-12">
+				<div class="md-form mb-0">
+					<h3 class="font-weight-bold">Lighting Mode</h3>
+				</div>
+				</div>
+			</div>
+
+			<div class="md-form mb-0">
+				<select class="browser-default custom-select md-form" id="modeid" name="modeid">
+				<option value="Localized" {% if form_vals[5] == "Localized" %} selected{% endif %} disabled>Localized</option>
+				<option value="Perpendicular" {% if form_vals[5] == "Perpendicular" %} selected{% endif %}>Only Perpendicular Distance Localized</option>
+				<option value="Parallel" {% if form_vals[5] == "Parallel" %} selected{% endif %}>Only Parallel Distance Localized</option>
+				<option value="Solid" {% if form_vals[5] == "Solid" %} selected{% endif %}>Solid Color (No Localization)</option>
+				</select>
+			</div>
+
+			<div class="row">
+				<div class="col-md-12">
+					<div class="md-form mb-0">
+						<input type="text" id="radiusid" name="radiusid" class="form-control" required value={{form_vals[6]}}>
+						<label for="radiusid" class="">Radius of Influence in Localization Mode</label>
+						<div class="invalid-feedback">
+							Please input a value
+						</div>
+					</div>
+				</div>
+			</div>
+			<hr class="hr-dark">
+
+			<!-- Submit button -->
+				<button class="btn btn-primary btn-rounded btn-block my-4 waves-effect z-depth-0" type="submit">Submit</button>
+
+
+		</form>
+
+
+
+	</div>
 </main>
 <!--Main layout-->
 {% endblock %}
